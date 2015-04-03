@@ -9,4 +9,7 @@ choose do |menu|
 	menu.choice(:Logout) do
 		say "Deslogueando..."
 	end
+	menu.choice(:Estado) do
+		say "Tu estado es"
+	end
 end
