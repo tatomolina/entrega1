@@ -12,4 +12,6 @@ choose do |menu|
 	menu.choice(:Estado) do
 		say "Tu estado es"
 	end
+	menu.choice(:Salir) do
+	end
 end
