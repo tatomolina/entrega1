@@ -1,8 +1,11 @@
+require_relative './cuenta.rb'
 
 class Controlador 
-	def initialize(args)
-		
+	attr_accessor :cuenta
+	def initialize
+		self.cuenta = Cuenta.new
 	end
-	
-	
+	def estado?
+		cuenta.estado?
+	end	
 end

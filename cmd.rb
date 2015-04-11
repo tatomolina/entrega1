@@ -1,7 +1,9 @@
 require 'highline/import'
+require_relative './controlador.rb'
 
 salir = false;
 estado = false;
+controlador = Controlador.new
 
 while !salir do
 
@@ -27,11 +29,7 @@ while !salir do
 			end
 		end
 		menu.choice(:Estado) do
-			if estado == false
-				say "Usted no se encuentra logueado"
-			else
-				say "Usted esta logueado como #{@usuario}"
-			end
+			controlador.estado?
 		end
 		menu.choice(:Salir) do
 			say "Adios, vuelva pronto!"
