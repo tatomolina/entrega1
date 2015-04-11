@@ -1,6 +1,7 @@
 require 'highline/import'
 
 salir = false;
+estado = false;
 
 while !salir do
 
@@ -12,6 +13,7 @@ while !salir do
 			@password = ask "Password: "
 			if @usuario == "admin" && @password == "admin"
 				say "Usted se ha logueado exitosamente"
+				estado = true
 			else
 				say "Nombre de usuario o contraseña incorrecta"
 			end	
@@ -20,7 +22,9 @@ while !salir do
 			say "Deslogueando..."
 		end
 		menu.choice(:Estado) do
-			say "Tu estado es"
+			if estado == false
+				say "Usted no se encuentra logueado"
+			end
 		end
 		menu.choice(:Salir) do
 			say "Adios, vuelva pronto!"
