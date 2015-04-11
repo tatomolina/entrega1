@@ -8,7 +8,13 @@ while !salir do
 		menu.header = "Menu"
 		menu.prompt = "Elija una opcion: "
 		menu.choice(:Login) do
-			say "Logueando..."
+			@usuario = ask "Usuario: "
+			@password = ask "Password: "
+			if @usuario == "admin" && @password == "admin"
+				say "Usted se ha logueado exitosamente"
+			else
+				say "Nombre de usuario o contraseña incorrecta"
+			end	
 		end
 		menu.choice(:Logout) do
 			say "Deslogueando..."
