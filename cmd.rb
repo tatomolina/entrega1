@@ -17,6 +17,7 @@ while !salir do
 			say "Tu estado es"
 		end
 		menu.choice(:Salir) do
+			say "Adios, vuelva pronto!"
 			salir = true		
 		end
 	end
