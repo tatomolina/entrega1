@@ -8,4 +8,7 @@ class Controlador
 	def estado?
 		cuenta.estado?
 	end	
+	def login(usuario, password)
+		cuenta.login(usuario, password)
+	end
 end

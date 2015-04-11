@@ -11,14 +11,9 @@ while !salir do
 		menu.header = "Menu"
 		menu.prompt = "Elija una opcion: "
 		menu.choice(:Login) do
-			@usuario = ask "Usuario: "
-			@password = ask "Password: "
-			if @usuario == "admin" && @password == "admin"
-				say "Usted se ha logueado exitosamente!"
-				estado = true
-			else
-				say "Nombre de usuario o contraseña incorrecta"
-			end	
+			usuario = ask "Usuario: "
+			password = ask "Password: "
+			controlador.login(usuario, password)	
 		end
 		menu.choice(:Logout) do
 			if estado == true
