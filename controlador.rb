@@ -11,4 +11,7 @@ class Controlador
 	def login(usuario, password)
 		cuenta.login(usuario, password)
 	end
+	def logout
+		cuenta.logout
+	end
 end

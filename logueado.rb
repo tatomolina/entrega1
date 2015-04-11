@@ -7,4 +7,8 @@ class Logueado < Estado
 	def estado?(cuenta)
 		puts "Usted esta logueado como #{cuenta.usuario}"
 	end
+	def logout(cuenta)
+		cuenta.estado = Deslogueado.new
+		puts "Usted se ha deslogueado en forma exitosa"
+	end
 end

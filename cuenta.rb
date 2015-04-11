@@ -23,4 +23,7 @@ class Cuenta
 			puts "Nombre de usuario o contraseña incorrecta"
 		end
 	end
+	def logout
+		estado.logout(self)
+	end
 end

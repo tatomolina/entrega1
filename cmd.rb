@@ -12,16 +12,11 @@ while !salir do
 		menu.prompt = "Elija una opcion: "
 		menu.choice(:Login) do
 			usuario = ask "Usuario: "
-			password = ask "Password: "
+			password = ask("Password: ") {|password| password.echo = "*"}
 			controlador.login(usuario, password)	
 		end
 		menu.choice(:Logout) do
-			if estado == true
-				estado = false
-				say "Usted se ha deslogueado de forma exitosa"
-			else
-				say "Usted no se encuentra logueado"
-			end
+			controlador.logout
 		end
 		menu.choice(:Estado) do
 			controlador.estado?
