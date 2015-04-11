@@ -12,14 +12,19 @@ while !salir do
 			@usuario = ask "Usuario: "
 			@password = ask "Password: "
 			if @usuario == "admin" && @password == "admin"
-				say "Usted se ha logueado exitosamente"
+				say "Usted se ha logueado exitosamente!"
 				estado = true
 			else
 				say "Nombre de usuario o contraseña incorrecta"
 			end	
 		end
 		menu.choice(:Logout) do
-			say "Deslogueando..."
+			if estado == true
+				estado = false
+				say "Usted se ha deslogueado de forma exitosa"
+			else
+				say "Usted no se encuentra logueado"
+			end
 		end
 		menu.choice(:Estado) do
 			if estado == false
