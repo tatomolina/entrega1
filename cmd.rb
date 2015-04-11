@@ -24,6 +24,8 @@ while !salir do
 		menu.choice(:Estado) do
 			if estado == false
 				say "Usted no se encuentra logueado"
+			else
+				say "Usted esta logueado como #{@usuario}"
 			end
 		end
 		menu.choice(:Salir) do
