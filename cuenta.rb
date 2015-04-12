@@ -1,6 +1,8 @@
 require_relative './logueado.rb'
 require_relative './deslogueado.rb'
 require_relative './texto_plano.rb'
+require_relative './caesar_cipher.rb'
+require_relative './bcrypt.rb'
 
 class Cuenta
 	attr_accessor :estado
@@ -8,7 +10,7 @@ class Cuenta
 	attr_accessor :autenticador
 	def initialize
 		self.estado = Deslogueado.new
-		self.autenticador = Texto_plano.new
+		texto_plano
 	end
 	def estado?
 		estado.estado?(self)
@@ -24,5 +26,14 @@ class Cuenta
 	end
 	def logout
 		estado.logout(self)
+	end
+	def texto_plano
+		self.autenticador = Texto_plano.new
+	end
+	def caesar_cipher
+		self.autenticador = Caesar_cipher.new
+	end
+	def bcrypt
+		self.autenticador = Bcrypt.new
 	end
 end

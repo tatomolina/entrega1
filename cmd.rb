@@ -2,7 +2,6 @@ require 'highline/import'
 require_relative './controlador.rb'
 
 salir = false;
-estado = false;
 controlador = Controlador.new
 
 while !salir do
@@ -20,6 +19,20 @@ while !salir do
 		end
 		menu.choice(:Estado) do
 			controlador.estado?
+		end
+		menu.choice(:Autenticador) do
+			choose do |menu|
+				menu.prompt = "Elija una opcion: "
+				menu.choice(:Texto_plano) do
+					controlador.texto_plano
+				end
+				menu.choice(:Caesar_cipher) do
+					controlador.caesar_cipher
+				end
+				menu.choice(:Bcrypt) do
+					controlador.bcrypt
+				end
+			end
 		end
 		menu.choice(:Salir) do
 			say "Adios, vuelva pronto!"
