@@ -20,13 +20,13 @@ while !salir do
 		menu.choice(:Estado) do
 			controlador.estado?
 		end
-		menu.choice(:Autenticador) do
+		menu.choice(:"Autenticador (default es texto_plano)") do
 			choose do |menu|
 				menu.prompt = "Elija una opcion: "
-				menu.choice(:Texto_plano) do
+				menu.choice(:"Texto plano") do
 					controlador.texto_plano
 				end
-				menu.choice(:Caesar_cipher) do
+				menu.choice(:"Caesar cipher") do
 					controlador.caesar_cipher
 				end
 				menu.choice(:Bcrypt) do
