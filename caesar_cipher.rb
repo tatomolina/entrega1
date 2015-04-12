@@ -6,6 +6,6 @@ class Caesar_cipher < Autenticador
 		caesar = CaesarCipher::Caesar.new
 	end
 	def valido?(usuario, password)
-		
+		return usuario == "admin" && caesar.cipher(password) == caesar.cipher("admin")
 	end
 end
