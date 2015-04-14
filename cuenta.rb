@@ -3,8 +3,8 @@ require_relative './deslogueado.rb'
 require_relative './texto_plano.rb'
 require_relative './caesar_cipher.rb'
 require_relative './bcrypt.rb'
-require_relative './usuario_existente_error.rb'
 require_relative './usuario.rb'
+require_relative './usuarioExistenteError'
 
 class Cuenta
 	attr_accessor :estado
@@ -17,26 +17,42 @@ class Cuenta
 		@usuarios = []
 	end
 
+	#Creacion de usuarios
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def usuarios=(usuario)
 		#usuario es una instancia de la clase usuario
 		@usuarios << usuario
 	end
+
 	def usuario_existente?(usuario)
 		#chequeo si el usuario ya se encuentra creado
-		if usuarios.detect { |user| user.usuario == usuario }
+		return usuarios.detect(ifnone = false) { |user| user.usuario == usuario }
+	end
+
+	def puedo_crear_usuario?(usuario)
+		#Evaluo si ya existe un usuario. En caso de existir levanto una excepcion, en caso contrario devuelvo true
+		if usuario_existente(usuario)
 			raise UsuarioExistenteError.new(usuario)
+		else 
+			return true
 		end
 	end
+
 	def crear_usuario(usuario, password)
 		#Creo un usuario y lo guardo en el array usuarios
-		self.usuarios = Usuario.new(usuario, password)
+		puedo_crear_usuario(usuario)
 	end
+
 	def estado?
 		#Le pregunto a mi estado en que estado estoy
 		estado.estado?(self)
 	end
+
+	#Login de usuarios
+	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def login(usuario, password)
+		usuario_existente?(usuario)
+
 		if autenticador.valido?(usuario, password)
 			self.estado = Logueado.new
 			puts "Usted se ha logueado exitosamente!"

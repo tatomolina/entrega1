@@ -1,5 +1,5 @@
 class Autenticador
-	def initialize
+	def initialize()
 		
 	end
 	def valido?(usuario, password)
