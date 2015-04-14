@@ -5,6 +5,6 @@ class Texto_plano < Autenticador
 		
 	end
 	def valido?(usuario, password)
-		return usuario == "admin" && password == "admin"
+		return usuario.password_plano == password
 	end
 end
