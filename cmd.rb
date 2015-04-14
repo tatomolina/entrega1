@@ -1,9 +1,11 @@
 require 'highline/import'
 require_relative './controlador.rb'
 
-salir = false;
-controlador = Controlador.new
 
+controlador = Controlador.new
+=begin
+	
+salir = false;
 while !salir do
 
 	choose do |menu|
@@ -40,3 +42,5 @@ while !salir do
 		end
 	end
 end
+
+=end

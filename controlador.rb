@@ -11,28 +11,44 @@ class Controlador
 		vista.login
 	end
 
+	#Creo usuario
+	#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def crear_usuario(usuario, password)
 		#Llamo al emtodo crear_usuario de la clase cuenta, en caso de no poder realizarse esta levanta una excepcion que manejo, en caso contrario crea el usuario.
 		begin
 			cuenta.crear_usuario(usuario, password)	
 		rescue UsuarioExistenteError => e
 			puts "#{e.usuario} ya se encuentra registrado"
-			vista.login		
 		end		
+		vista.login
 	end
 
+	#Login de usuarios
+	#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def login(usuario, password)
-		cuenta.login(usuario, password)
+		begin
+			cuenta.login(usuario, password)
+		rescue LoginError
+			vista.login
+		else
+			vista.logout
+		end
 	end
 
+	#Logout de usuarios
+	#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def logout
 		cuenta.logout
 	end
 
+	#Consulto el estado
+	#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def estado?
 		cuenta.estado?
 	end
 
+	#Autenticador a usar
+	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def texto_plano
 		cuenta.texto_plano		
 	end

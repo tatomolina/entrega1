@@ -48,6 +48,7 @@ class Vista
 			end
 		end
 	end
+	
 	def autenticador
 		choose do |menu|
 			menu.prompt = "Elija una opcion: "
@@ -63,4 +64,8 @@ class Vista
 		end
 		logout
 	end	
+
+	def mensaje_login_error
+		puts "Usuario o password incorrecto"
+	end
 end
