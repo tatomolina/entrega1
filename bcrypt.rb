@@ -6,9 +6,6 @@ class Bcrypt < Autenticador
 		
 	end
 	def valido?(usuario, password)
-		return usuario == "admin" && BCrypt::Password.create(password) == "admin"
-	end
-	def hashing(password)
-		BCrypt::Password.create(password)
+		return usuario == "admin" && BCrypt::Password.create("admin") == password
 	end
 end

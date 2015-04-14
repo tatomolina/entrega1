@@ -15,5 +15,8 @@ describe Bcrypt do
 		it "Devuelve false cuando el password es incorrecto" do
 			expect(@bcrypt.valido?("admin", "a")).to be false
 		end
+		it "Devuelve false cuando el password y el usuario son incorrectos" do
+			expect(@bcrypt.valido?("a", "a")).to be false
+		end
 	end
 end

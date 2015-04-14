@@ -1,9 +1,12 @@
 require_relative './cuenta.rb'
+require_relative './vista.rb'
 
 class Controlador 
 	attr_accessor :cuenta
+	attr_accessor :vista
 	def initialize
 		self.cuenta = Cuenta.new
+		self.vista = Vista.new(self)
 	end
 	def estado?
 		cuenta.estado?

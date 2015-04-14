@@ -15,5 +15,8 @@ describe Texto_plano do
 		it "Devuelve false cuando el password es incorrecto" do
 			expect(@texto_plano.valido?("admin", "a")).to be false
 		end
+		it "Devuelve false cuando el password y el usuario son incorrectos" do
+			expect(@texto_plano.valido?("a", "a")).to be false
+		end
 	end
 end
