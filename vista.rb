@@ -10,6 +10,11 @@ class Vista
 		choose do |menu|
 			menu.header = "Login Menu"
 			menu.prompt = "Elija una opcion: "
+			menu.choice(:"Crear usuario") do
+				usuario = ask "Usuario: "
+				password = ask("Password: ") {|password| password.echo = "*"}
+				controlador.crear_usuario(usuario, password)
+			end
 			menu.choice(:Login) do
 				usuario = ask "Usuario: "
 				password = ask("Password: ") {|password| password.echo = "*"}
