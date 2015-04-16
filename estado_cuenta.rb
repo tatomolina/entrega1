@@ -1,5 +1,5 @@
 class Estado 
-	def estado?(cuenta)
+	def logueado?
 		raise NotImplementedError
 	end
 	def logout(cuenta)

@@ -28,19 +28,20 @@ class Cuenta
 	end
 
 	def usuario_existente?(usuario)
-		#chequeo si el usuario ya se encuentra creado, en caso de no estarlo levanto una excepcion
-		return usuarios.detect(ifnone = (raise UsuarioInexistenteError.new(usuario))) { |user| user.usuario == usuario }
+		#chequeo si el usuario ya se encuentra creado
+		return usuarios.any? { |user| user.usuario == usuario }
+	end
+
+	def dame_usuario(usuario)
+		return usuarios.detect {|user| user.usario == usuario}
 	end
 
 	def crear_usuario(usuario, password)
 		#Chequeo si el usuario esta creado si recibo la excepcion de que no esta creado rescato la aplicacion y creo el nuevo usuario, en caso contrario levanto una nueva excepcion diciendo que el usuario ya se encuentra creado 
-		begin
-			usuario_existente?(usuario)
-		rescue UsuarioInexistenteError => e
-			self.usuarios = Usuario.new(usuario, password)
+		if usuario_existente?(usuario)
+			raise UsuarioExistenteError
 		else
-			puts "hola!"
-			raise UsuarioExistenteError.new(usuario)
+			self.usuarios = Usuario.new(usuario, password)
 		end
 	end
 
@@ -55,6 +56,12 @@ class Cuenta
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def login(usuario, password)
 		#Chequeo si existe el usuario que me pasan por parametros, en cason de existir el metodo usuario_existente me devuelve el usuario, sino levanta una excepcion que debo manejar
+		if usuario_existente?(usuario)
+				
+		else
+
+		end
+
 		begin
 			user = usuario_existente?(usuario)	
 		rescue UsuarioInexistenteError => e

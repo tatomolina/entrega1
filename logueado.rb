@@ -4,8 +4,8 @@ class Logueado < Estado
 	def initialize
 		
 	end
-	def estado?(cuenta)
-		puts "Usted esta logueado como #{cuenta.usuario}"
+	def logueado?
+		return true
 	end
 	def logout(cuenta)
 		cuenta.estado = Deslogueado.new

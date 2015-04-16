@@ -4,8 +4,8 @@ class Deslogueado < Estado
 	def initialize
 		
 	end
-	def estado?(cuenta)	
-		puts "Usted no se encuentra logueado"
+	def logueado?	
+		return false
 	end
 	def logout(cuenta)
 		puts "Usted no se encuentra logueado"
