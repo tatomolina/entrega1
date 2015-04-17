@@ -88,8 +88,8 @@ class Vista
 	end
 
 	def mensaje_conversion_error
-		say "No se puede convertir una contraseña de bcrypt"
-		say "Para poder utilizar los otros modelos de cifrado deslogueese de su cuenta y logueese otra vez"
+		say "No se puede cambiar el metodo de autentifacion"
+		say "Para poder utilizar los otros modelos de cifrado, elija la opcion recuperar contraseña y siga los pasos"
 		say "Gracias!"
 	end
 

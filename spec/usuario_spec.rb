@@ -1,23 +1,32 @@
 require_relative '../usuario.rb'
 
 describe Usuario do
-	before(:each) do
-		@usuario = Usuario.new("admin", "admin")
-	end
+	let(:usuario) {Usuario.new("admin", "admin")}
+
 	describe "initialize" do
 		it "Al instanciar debria contener el nombre del usuario" do
-			expect(@usuario.usuario).to eq("admin") 
+			expect(usuario.nombre_usuario).to eq("admin") 
 		end
-		
-		it "Al instanciar deberia contener el password plano" do
-			expect(@usuario.password_plano).to eq("admin")
-		end
+	end
 
-		it "Al instanciar deberia contener el password cifrado en caesar" do
-			expect(@usuario.password_caesar).to eq("ehqmr")
+	describe "caesar_cipher" do
+			before {usuario.caesar_cipher}
+		it "Debe cambiar el autenticador a Caesar_cipher" do
+			expect(usuario.autenticador).to be_instance_of(Caesar_cipher)
 		end
-		it "Al instanciar deberia contener el password cifrado en bcrypt" do
-			expect(@usuario.password_bcrypt).to eq("admin")
-		end		
+	end
+
+	describe "texto_plano" do
+			before {usuario.texto_plano}
+		it "Debe cambiar el autenticador a Texto plano" do
+			expect(usuario.autenticador).to be_instance_of(Texto_plano)
+		end
+	end
+
+	describe "bcrypt" do
+		before {usuario.bcrypt}
+		it "Debe cambiar el autenticador a Bcrypt" do
+			expect(usuario.autenticador).to be_instance_of(Bcrypt)
+		end
 	end
 end

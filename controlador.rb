@@ -63,7 +63,7 @@ class Controlador
 	def texto_plano
 		begin
 			cuenta.texto_plano	
-		rescue ConversionIrrealizable => e
+		rescue ConversionIrrealizableError
 			vista.mensaje_conversion_error
 		end
 		vista.logout
@@ -72,7 +72,7 @@ class Controlador
 	def caesar_cipher
 		begin
 			cuenta.caesar_cipher
-		rescue ConversionIrrealizableError => e
+		rescue ConversionIrrealizableError
 			vista.mensaje_conversion_error
 		end
 		vista.logout

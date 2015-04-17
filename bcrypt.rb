@@ -1,6 +1,5 @@
 require_relative './autenticador.rb'
 require_relative './conversion_irrealizable_error.rb'
-require 'bcrypt'
 
 class Bcrypt < Autenticador
 	def initialize
