@@ -6,18 +6,19 @@ require_relative './bcrypt.rb'
 require_relative './usuario.rb'
 require_relative './usuario_existente_error.rb'
 require_relative './usuario_inexistente_error.rb'
+require_relative './usuario_no_logueado.rb'
 require_relative './login_error.rb'
 
 
 class Cuenta
 	attr_accessor :estado
+	attr_accessor :usuario
 	attr_reader :usuarios
-	attr_accessor :autenticador
 	
 	def initialize
 		self.estado = Deslogueado.new
-		texto_plano
 		@usuarios = []
+		crear_usuario("admin", "admin")
 	end
 
 	#Creacion de usuarios
@@ -27,89 +28,69 @@ class Cuenta
 		@usuarios << usuario
 	end
 
-	def usuario_existente?(usuario)
+	def usuario_existente?(nombre_usuario)
 		#chequeo si el usuario ya se encuentra creado
-		return usuarios.any? { |user| user.usuario == usuario }
+		return usuarios.any? { |user| user.nombre_usuario == nombre_usuario }
 	end
 
-	def dame_usuario(usuario)
-		return usuarios.detect {|user| user.usario == usuario}
+	def dame_usuario(nombre_usuario)
+		return usuarios.detect {|user| user.nombre_usuario == nombre_usuario}
 	end
 
-	def crear_usuario(usuario, password)
-		#Chequeo si el usuario esta creado si recibo la excepcion de que no esta creado rescato la aplicacion y creo el nuevo usuario, en caso contrario levanto una nueva excepcion diciendo que el usuario ya se encuentra creado 
-		if usuario_existente?(usuario)
-			raise UsuarioExistenteError
+	def crear_usuario(nombre_usuario, password)
+		#Chequeo si el usuario esta creado, en caso de estarlo levanto una excepcion, en el caso contrario creo el usuario  
+		if usuario_existente?(nombre_usuario)
+			raise UsuarioExistenteError.new(nombre_usuario)
 		else
-			self.usuarios = Usuario.new(usuario, password)
+			self.usuarios = Usuario.new(nombre_usuario, password)
 		end
 	end
 
 	#Estado del usuario
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-	def estado?
-		#Le pregunto a mi estado en que estado estoy
-		estado.estado?(self)
+	def usuario_logueado
+		#Le pregunto a mi estado el usuario logueado
+		if estado.logueado?
+			return usuario.nombre_usuario
+		else
+			raise UsuarioNoLogueado
+		end
 	end
 
 	#Login de usuarios
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-	def login(usuario, password)
+	def login(nombre_usuario, password)
 		#Chequeo si existe el usuario que me pasan por parametros, en cason de existir el metodo usuario_existente me devuelve el usuario, sino levanta una excepcion que debo manejar
-		if usuario_existente?(usuario)
-				
-		else
-
-		end
-
-		begin
-			user = usuario_existente?(usuario)	
-		rescue UsuarioInexistenteError => e
-			puts "Nombre de usuario incorrecto"
-		else
-			#estoy pasando el usuario (no el string) por parametro y voy a tener q modificar los modos de validacion
-			if autenticador.valido?(user, password)
-				self.usuario = user
+		if usuario_existente? nombre_usuario
+			self.usuario = dame_usuario nombre_usuario
+			if usuario.password_correcto? password
 				self.estado = Logueado.new
 			else
-				puts "Password incorrecto"
-				raise LoginError
+				raise LoginError 
 			end
-		end
-
-		#metodo valido? manejo excepciones desde el modelo
-		#metodo valido2? manejo ls excepciones desde el controlador
-		user = usuario_existente?(usuario)
-		autenticador.valido2?(user, password)
-		self.usuario = user
-		self.estado = Logueado.new
-		
-
-=begin
-		if autenticador.valido?(usuario, password)
-			self.estado = Logueado.new
-			puts "Usted se ha logueado exitosamente!"
 		else
-			puts "Nombre de usuario o contraseña incorrecta"
+			raise UsuarioInexistenteError
 		end
-=end
 	end
 
 	#Logout usuarios
 	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def logout
-		estado.logout(self)
+		self.estado = Deslogueado.new
+		self.usuario = nil
 	end
 
-		#Autenticador a utilizar
-	#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+	#Indico con que Autenticador voy a trabajar
+	#---------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def texto_plano
-		self.autenticador = Texto_plano.new
-	end
+		usuario.texto_plano	
+	end	
+
 	def caesar_cipher
-		self.autenticador = Caesar_cipher.new
+		usuario.caesar_cipher
 	end
+
 	def bcrypt
-		self.autenticador = Bcrypt.new
+		usuario.bcrypt
 	end
 end

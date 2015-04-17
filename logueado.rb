@@ -7,8 +7,4 @@ class Logueado < Estado
 	def logueado?
 		return true
 	end
-	def logout(cuenta)
-		cuenta.estado = Deslogueado.new
-		puts "Usted se ha deslogueado en forma exitosa"
-	end
 end

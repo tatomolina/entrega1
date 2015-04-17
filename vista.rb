@@ -65,7 +65,35 @@ class Vista
 		logout
 	end	
 
+#Definicion de mensajes
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+	def mensaje_logout_exito
+		say "Usted se ha deslogueado en forma exitosa"
+	end
+
+	def mensaje_estado_loguado(usuario)
+		say "Usted esta logueado como #{usuario}"
+	end
+
+	def mensaje_estado_no_logueado
+		say "Usted no se encuentra logueado"
+	end
+
 	def mensaje_login_error
-		puts "Usuario o password incorrecto"
+		say "Nombre de usuario o contraseña incorrecta"
+	end
+
+	def mensaje_login_exito
+		say "Usted se ha logueado exitosamente!"
+	end
+
+	def mensaje_conversion_error
+		say "No se puede convertir una contraseña de bcrypt"
+		say "Para poder utilizar los otros modelos de cifrado deslogueese de su cuenta y logueese otra vez"
+		say "Gracias!"
+	end
+
+	def mensaje_usuario_creado_exito
+		say "Usuario creado correctamente!"
 	end
 end

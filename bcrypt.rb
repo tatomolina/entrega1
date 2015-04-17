@@ -1,5 +1,5 @@
 require_relative './autenticador.rb'
-require_relative './conversion_irrealisable_error.rb'
+require_relative './conversion_irrealizable_error.rb'
 require 'bcrypt'
 
 class Bcrypt < Autenticador
@@ -7,19 +7,19 @@ class Bcrypt < Autenticador
 		
 	end
 
-	def valido?(user_password, password)
-		return user_password == password
+	def valido?(password, password_pretendiente)
+		return password == password_pretendiente
 	end
 
-	def password_plano(usuario)
+	def password_plano(password)
 		raise ConversionIrrealizableError
 	end
 
-	def password_caesar(usuario)
+	def password_caesar(password)
 		raise ConversionIrrealizableError
 	end
 
-	def password_bcrypt(usuario)
-		return usuario.password
+	def password_bcrypt(password)
+		return password
 	end
 end

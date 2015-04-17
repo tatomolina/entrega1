@@ -7,7 +7,4 @@ class Deslogueado < Estado
 	def logueado?	
 		return false
 	end
-	def logout(cuenta)
-		puts "Usted no se encuentra logueado"
-	end
 end

@@ -6,8 +6,8 @@ class Texto_plano < Autenticador
 	def initialize
 		
 	end
-	def valido?(user_password, password)
-		return user_password == password
+	def valido?(password, password_pretendiente)
+		return password == password_pretendiente
 	end
 
 	def password_plano(password)
