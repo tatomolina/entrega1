@@ -25,7 +25,7 @@ class Vista
 			end
 			menu.choice(:Salir) do
 				say "Adios, vuelva pronto!"
-				salir = true		
+				exit		
 			end
 		end
 	end
@@ -44,7 +44,7 @@ class Vista
 			end
 			menu.choice(:Salir) do
 				say "Adios, vuelva pronto!"
-				salir = true		
+				exit		
 			end
 		end
 	end

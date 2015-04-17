@@ -16,6 +16,10 @@ class Usuario
 		autenticador.valido?(@password, password_pretendiente)
 	end
 
+	def password
+		return @password
+	end
+
 #Autenticador
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 	def texto_plano

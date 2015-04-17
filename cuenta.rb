@@ -63,6 +63,7 @@ class Cuenta
 		#Chequeo si existe el usuario que me pasan por parametros, en cason de existir el metodo usuario_existente me devuelve el usuario, sino levanta una excepcion que debo manejar
 		if usuario_existente? nombre_usuario
 			self.usuario = dame_usuario nombre_usuario
+			puts self.usuario.password
 			if usuario.password_correcto? password
 				self.estado = Logueado.new
 			else

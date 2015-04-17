@@ -8,7 +8,7 @@ class Caesar_cipher < Autenticador
 
 	end
 	def valido?(user_password, password)
-		return password_plano == password
+		return password_plano(user_password) == password
 	end
 
 	def password_plano(password)
@@ -20,6 +20,6 @@ class Caesar_cipher < Autenticador
 	end
 
 	def password_bcrypt(password)
-		return BCrypt::Password.create(password_plano)
+		return BCrypt::Password.create(password_plano password)
 	end
 end
