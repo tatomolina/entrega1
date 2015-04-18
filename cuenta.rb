@@ -66,6 +66,7 @@ class Cuenta
 			if usuario.password_correcto? password
 				self.estado = Logueado.new
 			else
+				self.usuario = nil
 				raise LoginError 
 			end
 		else
