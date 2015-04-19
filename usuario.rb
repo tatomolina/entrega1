@@ -32,4 +32,9 @@ class Usuario
 		@password = self.autenticador.password_bcrypt(@password)
 		self.autenticador = Bcrypt.new
 	end
+	
+	def restablecer_password
+		@password = "1234"
+		self.autenticador = Texto_plano.new
+	end
 end

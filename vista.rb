@@ -8,7 +8,6 @@ class Vista
 	def initialize
 		self.cuenta = Cuenta.new
 		login
-		#(controlador) self.controlador = controlador
 	end
 	def login
 		choose do |menu|
@@ -21,10 +20,9 @@ class Vista
 					cuenta.crear_usuario(usuario, password)
 					mensaje_usuario_creado_exito	
 				rescue UsuarioExistenteError
-					say "#{usuario} ya se encuentra registrado"
+					mensaje_usuario_existene(usuario)
 				end		
 				login
-				#controlador.crear_usuario(usuario, password)
 			end
 			menu.choice(:Login) do
 				usuario = ask "Usuario: "
@@ -36,8 +34,7 @@ class Vista
 				rescue StandardError
 					mensaje_login_error
 					login
-				end
-				#controlador.login(usuario, password)	
+				end	
 			end
 			menu.choice(:Estado) do
 				begin
@@ -48,7 +45,6 @@ class Vista
 					mensaje_estado_no_logueado
 					login
 				end
-				#controlador.estado?
 			end
 			menu.choice(:Salir) do
 				say "Adios, vuelva pronto!"
@@ -64,7 +60,6 @@ class Vista
 					cuenta.logout
 					mensaje_logout_exito
 					login
-				#controlador.logout
 			end
 			menu.choice(:Estado) do
 				begin
@@ -75,7 +70,6 @@ class Vista
 					mensaje_estado_no_logueado
 					login
 				end
-				#controlador.estado?
 			end
 			menu.choice(:"Autenticador (default es texto_plano)") do	
 			autenticador
@@ -96,7 +90,6 @@ class Vista
 				rescue ConversionIrrealizableError
 					mensaje_conversion_error
 				end
-				#controlador.texto_plano
 			end
 			menu.choice(:"Caesar cipher") do
 				begin
@@ -104,18 +97,45 @@ class Vista
 				rescue ConversionIrrealizableError
 					mensaje_conversion_error
 				end
-				#controlador.caesar_cipher
 			end
 			menu.choice(:Bcrypt) do
 				cuenta.bcrypt
-				#controlador.bcrypt
+			end
+			menu.choice(:"Restablecer password a texto plano") do
+				mensaje_confiramcion_restablecer
+				restablecer_password
 			end
 		end
 		logout
 	end	
 
+	def restablecer_password
+		choose do |menu|
+			menu.prompt = "Elija una opcion: "
+			menu.choice(:Si) do
+				cuenta.restablecer_password
+				mensaje_restablecer_exitoso
+			end
+			menu.choice(:No) do
+				logout
+			end
+		end
+	end
+
 #Definicion de mensajes
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+	def mensaje_confiramcion_restablecer
+		say "Esta seguro que desea restablecer su contraseña?"
+	end
+
+	def mensaje_restablecer_exitoso
+		say "Se le ha asignado 1234 como password plano"
+	end
+
+	def mensaje_usuario_existene(usuario)
+		say "#{usuario} ya se encuentra registrado"
+	end
+	
 	def mensaje_logout_exito
 		say "Usted se ha deslogueado en forma exitosa"
 	end
@@ -138,7 +158,7 @@ class Vista
 
 	def mensaje_conversion_error
 		say "No se puede cambiar el metodo de autentifacion"
-		say "Para poder utilizar los otros modelos de cifrado, elija la opcion recuperar contraseña y siga los pasos"
+		say "Para poder utilizar los otros modelos de cifrado, debe restablecer su password"
 		say "Gracias!"
 	end
 

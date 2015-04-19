@@ -94,4 +94,8 @@ class Cuenta
 	def bcrypt
 		usuario.bcrypt
 	end
+
+	def restablecer_password
+		usuario.restablecer_password
+	end
 end
