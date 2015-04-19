@@ -1,8 +1,9 @@
 require 'highline/import'
 require_relative './controlador.rb'
+require_relative './vista.rb'
 
-
-controlador = Controlador.new
+Vista.new
+#controlador = Controlador.new
 =begin
 	
 salir = false;
